@@ -80,13 +80,6 @@ public class UserHibernateDao implements UserDao {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        final TypedQuery<User> query = entityManager.createQuery("FROM User WHERE email = :email", User.class)
-                .setParameter("email", email);
-        return query.getResultList().stream().findFirst();
-    }
-
-    @Override
     public Optional<User> findByUsername(String username) {
         final TypedQuery<User> query = entityManager.createQuery("FROM User WHERE username = :username", User.class)
                 .setParameter("username", username);
@@ -97,31 +90,21 @@ public class UserHibernateDao implements UserDao {
     /*
     Auxiliary methods
      */
-    private void validateUserUniqueness(User user) throws UsernameAlreadyExistsException, EmailAlreadyExistsException {
+    private void validateUserUniqueness(User user) throws UsernameAlreadyExistsException {
         checkDuplicateUsername(user);
-        checkDuplicateEmail(user);
     }
 
-    private void updateUser(User user, User newValues) throws UsernameAlreadyExistsException, EmailAlreadyExistsException {
+    private void updateUser(User user, User newValues) throws UsernameAlreadyExistsException {
         newValues.setId(user.getId());
         validateUserUniqueness(newValues);
 
         user.setUsername(newValues.getUsername());
-        user.setEmail(newValues.getEmail());
-        user.setPassword(newValues.getPassword());
     }
 
     private void checkDuplicateUsername(User user) throws UsernameAlreadyExistsException {
         Optional<User> existingUser = findByUsername(user.getUsername());
         if (existingUser.isPresent() && isDifferentUser(existingUser.get(), user)) {
             throw new UsernameAlreadyExistsException();
-        }
-    }
-
-    private void checkDuplicateEmail(User user) throws EmailAlreadyExistsException {
-        Optional<User> existingUser = findByEmail(user.getEmail());
-        if (existingUser.isPresent() && isDifferentUser(existingUser.get(), user)) {
-            throw new EmailAlreadyExistsException();
         }
     }
 

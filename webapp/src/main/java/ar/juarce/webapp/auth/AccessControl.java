@@ -33,7 +33,7 @@ public class AccessControl {
         if (userDetails == null) {
             return null;
         }
-        return userService.findByUsername(userDetails.getUsername()).orElse(null);
+        return userService.findById(Long.parseLong(userDetails.getUsername())).orElse(null);
     }
 
     public boolean isAuthenticatedUser(Authentication authentication, Long id) {
