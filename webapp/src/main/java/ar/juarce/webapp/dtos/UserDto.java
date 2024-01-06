@@ -2,13 +2,10 @@ package ar.juarce.webapp.dtos;
 
 import ar.juarce.models.Role;
 import ar.juarce.models.User;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public record UserDto(

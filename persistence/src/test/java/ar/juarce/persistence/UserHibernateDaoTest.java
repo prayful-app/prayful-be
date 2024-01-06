@@ -1,7 +1,6 @@
 package ar.juarce.persistence;
 
 import ar.juarce.interfaces.exceptions.AlreadyExistsException;
-import ar.juarce.interfaces.exceptions.EmailAlreadyExistsException;
 import ar.juarce.interfaces.exceptions.UsernameAlreadyExistsException;
 import ar.juarce.models.User;
 import ar.juarce.persistence.config.TestConfig;
@@ -19,7 +18,6 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-
 import java.util.List;
 import java.util.Optional;
 

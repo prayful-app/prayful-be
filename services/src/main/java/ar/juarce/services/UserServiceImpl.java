@@ -7,7 +7,6 @@ import ar.juarce.interfaces.exceptions.NotFoundException;
 import ar.juarce.models.Role;
 import ar.juarce.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
