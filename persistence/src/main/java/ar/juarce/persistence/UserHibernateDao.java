@@ -90,11 +90,11 @@ public class UserHibernateDao implements UserDao {
     /*
     Auxiliary methods
      */
-    private void validateUserUniqueness(User user) throws UsernameAlreadyExistsException, EmailAlreadyExistsException {
+    private void validateUserUniqueness(User user) throws UsernameAlreadyExistsException {
         checkDuplicateUsername(user);
     }
 
-    private void updateUser(User user, User newValues) throws UsernameAlreadyExistsException, EmailAlreadyExistsException {
+    private void updateUser(User user, User newValues) throws UsernameAlreadyExistsException {
         newValues.setId(user.getId());
         validateUserUniqueness(newValues);
 
