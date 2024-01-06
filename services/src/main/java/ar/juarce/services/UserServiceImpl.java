@@ -18,24 +18,17 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     @Override
     public User create(User entity) throws AlreadyExistsException {
-        encodePassword(entity);
         entity.addRole(Role.USER);
         return userDao.create(entity);
-    }
-
-    private void encodePassword(User entity) {
-        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
     }
 
     @Transactional(readOnly = true)
@@ -53,7 +46,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User update(Long id, User entity) throws NotFoundException, AlreadyExistsException {
-        encodePassword(entity);
         return userDao.update(id, entity);
     }
 
@@ -79,12 +71,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public long count() {
         return userDao.count();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return userDao.findByEmail(email);
     }
 
     @Transactional(readOnly = true)

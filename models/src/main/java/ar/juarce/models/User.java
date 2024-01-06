@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 
 @Entity
@@ -20,13 +21,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false, unique = true)
     private String username;
-
-    @Column(nullable = false)
-    private String password;
 
     @Column(nullable = false)
     private boolean enabled;
@@ -40,12 +35,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
+    private static final int RANDOM_USER_LENGTH = 6;
+
     public User() {
         // Needed for Hibernate
     }
 
     public void addRole(Role role) {
         roles.add(role);
+    }
+
+    private static String generateUsername() {
+        final Random random = new Random();
+        return "anon" + random.nextInt((int) Math.pow(10, RANDOM_USER_LENGTH));
     }
 
     @Override
@@ -62,7 +64,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User %s: [email = %s, name = %s]", id, email, username);
+        return String.format("User %s: [name = %s]", id, username);
     }
 
     /*
@@ -83,7 +85,9 @@ public class User {
         }
 
         public User build() {
-            validate();
+            if (user.getUsername() == null) {
+                user.setUsername(generateUsername());
+            }
             return user;
         }
 
@@ -92,18 +96,8 @@ public class User {
             return this;
         }
 
-        public Builder email(String email) {
-            user.setEmail(email);
-            return this;
-        }
-
         public Builder username(String username) {
             user.setUsername(username);
-            return this;
-        }
-
-        public Builder password(String password) {
-            user.setPassword(password);
             return this;
         }
 
@@ -115,12 +109,6 @@ public class User {
         public Builder createdAt(LocalDateTime createdAt) {
             user.setCreatedAt(createdAt);
             return this;
-        }
-
-        public void validate() {
-            Objects.requireNonNull(user.getUsername());
-            Objects.requireNonNull(user.getEmail());
-            Objects.requireNonNull(user.getPassword());
         }
     }
 }

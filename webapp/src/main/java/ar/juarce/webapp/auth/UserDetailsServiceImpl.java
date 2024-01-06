@@ -25,12 +25,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userService = userService;
     }
 
+    /**
+     *
+     * @param username the id identifying the user whose data is required.
+     * @return a {@link UserDetails} object containing the user's data.
+     * @throws UsernameNotFoundException if the user is not found.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final User user = userService.findByUsername(username).orElseThrow(() -> new BadCredentialsException("Bad credentials")); // TODO throw custom exception
+        final User user = userService.findById(Long.parseLong(username)).orElseThrow(() -> new BadCredentialsException("Bad credentials")); // TODO throw custom exception
         return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
+                .username(user.getId().toString())
+                .password("")
                 .disabled(!user.isEnabled()) // TODO spring da vuelta el valor en el builder y termina siendo enabled en vez de disabled (raro)
                 .authorities(getAuthorities(user))
                 .build();

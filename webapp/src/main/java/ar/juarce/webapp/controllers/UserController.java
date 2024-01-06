@@ -5,6 +5,7 @@ import ar.juarce.interfaces.exceptions.AlreadyExistsException;
 import ar.juarce.interfaces.exceptions.NotFoundException;
 import ar.juarce.interfaces.exceptions.UserNotFoundException;
 import ar.juarce.models.User;
+import ar.juarce.webapp.auth.JwtUtils;
 import ar.juarce.webapp.dtos.UserDto;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -13,6 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.List;
 
@@ -20,13 +22,15 @@ import java.util.List;
 @Path("/users")
 public class UserController {
     private final UserService userService;
+    private final JwtUtils jwtUtils;
 
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtUtils jwtUtils) {
         this.userService = userService;
+        this.jwtUtils = jwtUtils;
     }
 
     @GET
@@ -50,6 +54,7 @@ public class UserController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveUser(@Valid UserDto userDto) throws AlreadyExistsException {
         final User user = userService.create(buildNewUser(userDto));
+        final Jwt jwt = jwtUtils.createJwt(user);
 
         return Response
                 .created(uriInfo
@@ -57,6 +62,7 @@ public class UserController {
                         .path(user.getId().toString())
                         .build())
                 .entity(UserDto.fromUser(user))
+                .header("Jwt", "Bearer " + jwt.getTokenValue())
                 .build();
     }
 
@@ -94,10 +100,12 @@ public class UserController {
     Auxiliary methods
      */
     private User buildNewUser(UserDto userDto) {
-        return User.builder()
-                .email(userDto.email())
-                .username(userDto.username())
-                .password(userDto.password())
+        final User.Builder userBuilder = User.builder();
+        if (userDto.username() != null) {
+            userBuilder.username(userDto.username());
+        }
+        return userBuilder
+                .enabled(true)
                 .build();
     }
 
