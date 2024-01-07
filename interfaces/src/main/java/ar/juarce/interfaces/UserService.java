@@ -8,4 +8,6 @@ public interface UserService extends CrudOperations<User, Long> {
 
     Optional<User> findByUsername(String username);
 
+    Optional<User> getCurrentUser();
+
 }
