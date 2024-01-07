@@ -7,6 +7,9 @@ import ar.juarce.interfaces.exceptions.NotFoundException;
 import ar.juarce.models.Role;
 import ar.juarce.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,5 +79,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<User> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        if (authentication == null) {
+            return Optional.empty();
+        }
+        return authentication.getPrincipal() instanceof UserDetails ?
+                findById(Long.parseLong(authentication.getName())) :
+                Optional.empty();
     }
 }

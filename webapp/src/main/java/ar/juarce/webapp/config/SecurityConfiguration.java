@@ -173,6 +173,9 @@ public class SecurityConfiguration {
                                 new AntPathRequestMatcher("/users/{id:\\d+}/**", HttpMethod.PUT.toString()),
                                 new AntPathRequestMatcher("/users/{id:\\d+}/**", HttpMethod.DELETE.toString())
                         )).access((authentication, context) -> new AuthorizationDecision(accessControl.isAuthenticatedUser(authentication.get(), Long.parseLong(context.getVariables().get("id")))))
+
+                        .requestMatchers(HttpMethod.POST, "/pray-requests").authenticated()
+
                         .requestMatchers("/**").permitAll())
 
                 // Add Basic & JWT Authentication filters
