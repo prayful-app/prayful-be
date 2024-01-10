@@ -174,7 +174,7 @@ public class SecurityConfiguration {
                                 new AntPathRequestMatcher("/users/{id:\\d+}/**", HttpMethod.DELETE.toString())
                         )).access((authentication, context) -> new AuthorizationDecision(accessControl.isAuthenticatedUser(authentication.get(), Long.parseLong(context.getVariables().get("id")))))
 
-                        .requestMatchers(HttpMethod.POST, "/pray-requests").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/prayer-requests").authenticated()
 
                         .requestMatchers("/**").permitAll())
 

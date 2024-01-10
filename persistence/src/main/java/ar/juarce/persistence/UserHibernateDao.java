@@ -2,6 +2,7 @@ package ar.juarce.persistence;
 
 import ar.juarce.interfaces.UserDao;
 import ar.juarce.interfaces.exceptions.*;
+import ar.juarce.models.Filter;
 import ar.juarce.models.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -36,7 +37,7 @@ public class UserHibernateDao implements UserDao {
 
     // Refactor this
     @Override
-    public List<User> findAll() {
+    public List<User> findAll(Filter<User> filter) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);

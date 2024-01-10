@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS user_role
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS pray_request
+CREATE TABLE IF NOT EXISTS prayer_request
 (
     id           SERIAL PRIMARY KEY,
     requester_id INT           NOT NULL,

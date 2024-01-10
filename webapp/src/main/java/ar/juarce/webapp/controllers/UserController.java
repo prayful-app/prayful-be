@@ -36,7 +36,7 @@ public class UserController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
-        final List<User> users = userService.findAll();
+        final List<User> users = userService.findAll(null);
 
         if (users.isEmpty()) {
             return Response
