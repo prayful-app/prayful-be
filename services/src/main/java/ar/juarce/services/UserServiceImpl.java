@@ -4,6 +4,7 @@ import ar.juarce.interfaces.UserDao;
 import ar.juarce.interfaces.UserService;
 import ar.juarce.interfaces.exceptions.AlreadyExistsException;
 import ar.juarce.interfaces.exceptions.NotFoundException;
+import ar.juarce.models.Filter;
 import ar.juarce.models.Role;
 import ar.juarce.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<User> findAll() {
-        return userDao.findAll();
+    public List<User> findAll(Filter<User> filter) {
+        return userDao.findAll(filter);
     }
 
     @Transactional

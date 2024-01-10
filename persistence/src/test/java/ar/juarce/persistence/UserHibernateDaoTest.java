@@ -96,7 +96,7 @@ public class UserHibernateDaoTest {
     @Test
     @DisplayName("Find all users should success and return 2 users")
     public void findAllUsers() {
-        final List<User> users = userHibernateDao.findAll();
+        final List<User> users = userHibernateDao.findAll(null);
 
         assertEquals(2, users.size());
     }

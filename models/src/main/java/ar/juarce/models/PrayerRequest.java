@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "pray_request")
+@Table(name = "prayer_request")
 @Getter
 @Setter
-public class PrayRequest {
+public class PrayerRequest {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pray_request_id_seq")
-    @SequenceGenerator(name = "pray_request_id_seq", sequenceName = "pray_request_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prayer_request_id_seq")
+    @SequenceGenerator(name = "prayer_request_id_seq", sequenceName = "prayer_request_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -27,14 +27,14 @@ public class PrayRequest {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public PrayRequest() {
+    public PrayerRequest() {
         // Needed for Hibernate
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PrayRequest that)) return false;
+        if (!(o instanceof PrayerRequest that)) return false;
         return id.equals(that.id);
     }
 
@@ -46,47 +46,47 @@ public class PrayRequest {
     @Override
     public String toString() {
         return String.format(
-                "PrayRequest[id=%d, requester='%s', request='%s', createdAt='%s']",
+                "PrayerRequest[id=%d, requester='%s', request='%s', createdAt='%s']",
                 id, requester, request, createdAt);
     }
 
     /*
-        Builder for PrayRequest
+        Builder for PrayerRequest
      */
     public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
-        private final PrayRequest prayRequest;
+        private final PrayerRequest prayerRequest;
 
         public Builder() {
-            prayRequest = new PrayRequest();
+            prayerRequest = new PrayerRequest();
         }
 
         public Builder id(Long id) {
-            prayRequest.setId(id);
+            prayerRequest.setId(id);
             return this;
         }
 
         public Builder requester(User requester) {
-            prayRequest.setRequester(requester);
+            prayerRequest.setRequester(requester);
             return this;
         }
 
         public Builder request(String request) {
-            prayRequest.setRequest(request);
+            prayerRequest.setRequest(request);
             return this;
         }
 
         public Builder createdAt(LocalDateTime createdAt) {
-            prayRequest.setCreatedAt(createdAt);
+            prayerRequest.setCreatedAt(createdAt);
             return this;
         }
 
-        public PrayRequest build() {
-            prayRequest.setCreatedAt(LocalDateTime.now());
-            return prayRequest;
+        public PrayerRequest build() {
+            prayerRequest.setCreatedAt(LocalDateTime.now());
+            return prayerRequest;
         }
     }
 
