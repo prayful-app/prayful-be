@@ -51,6 +51,7 @@ Thumbs.db
 
 # secrets
 jwk_set.json
+jwk_set_public.json
 
 # misc
 .env.local
