@@ -23,3 +23,25 @@ CREATE TABLE IF NOT EXISTS prayer_request
     created_at   TIMESTAMP     NOT NULL DEFAULT current_timestamp,
     FOREIGN KEY (requester_id) REFERENCES users (id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS prayer
+(
+    id                SERIAL PRIMARY KEY,
+    prayer_request_id INT           NOT NULL,
+    believer_id       INT           NOT NULL,
+    content           VARCHAR(1024) NOT NULL,
+    created_at        TIMESTAMP     NOT NULL DEFAULT current_timestamp,
+    FOREIGN KEY (prayer_request_id) REFERENCES prayer_request (id) ON DELETE CASCADE,
+    FOREIGN KEY (believer_id) REFERENCES users (id) ON DELETE CASCADE
+)
+
+
+
+
+
+
+
+
+
+
+
