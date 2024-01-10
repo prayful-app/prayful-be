@@ -6,9 +6,9 @@ import ar.juarce.interfaces.exceptions.AlreadyExistsException;
 import ar.juarce.interfaces.exceptions.NotFoundException;
 import ar.juarce.models.Filter;
 import ar.juarce.models.Prayer;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +26,16 @@ public class PrayerServiceImpl implements PrayerService {
     @Transactional
     @Override
     public Prayer create(Prayer entity) throws AlreadyExistsException {
+        if (entity.getPrayerRequest().getRequester().equals(entity.getBeliever())) {
+            throw new RuntimeException("Users can't pray for themselves"); // TODO create custom exception
+        }
         return prayerDao.create(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public Optional<Prayer> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<Prayer> findById(Long id) {
+        return prayerDao.findById(id);
     }
 
     @Override

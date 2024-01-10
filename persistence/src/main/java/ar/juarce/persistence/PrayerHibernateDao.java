@@ -25,8 +25,8 @@ public class PrayerHibernateDao implements PrayerDao {
     }
 
     @Override
-    public Optional<Prayer> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<Prayer> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(Prayer.class, id));
     }
 
     @Override
