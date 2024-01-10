@@ -138,7 +138,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Collections.singletonList(ALL));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.addAllowedHeader(ALL);
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Link", "Location", "ETag", "Jwt"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -175,6 +175,12 @@ public class SecurityConfiguration {
                         )).access((authentication, context) -> new AuthorizationDecision(accessControl.isAuthenticatedUser(authentication.get(), Long.parseLong(context.getVariables().get("id")))))
 
                         .requestMatchers(HttpMethod.POST, "/prayer-requests").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/prayer-requests/{id:\\d+}/prayers").access(
+                                (authentication, context)
+                                        -> new AuthorizationDecision(accessControl.isNotPrayerRequester(authentication.get(), Long.parseLong(context.getVariables().get("id"))))
+                        )
+
 
                         .requestMatchers("/**").permitAll())
 
