@@ -7,6 +7,7 @@ import ar.juarce.interfaces.exceptions.AlreadyExistsException;
 import ar.juarce.interfaces.exceptions.PrayerNotFoundException;
 import ar.juarce.interfaces.exceptions.PrayerRequestNotFoundException;
 import ar.juarce.models.Prayer;
+import ar.juarce.models.PrayerFilter;
 import ar.juarce.models.PrayerRequest;
 import ar.juarce.models.User;
 import ar.juarce.webapp.dtos.PrayerDto;
@@ -17,6 +18,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Path("/prayers")
 public class PrayerController {
@@ -35,6 +38,23 @@ public class PrayerController {
         this.prayerService = prayerService;
         this.prayerRequestService = prayerRequestService;
         this.userService = userService;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPrayers(@QueryParam("prayer-request-id") Long prayerRequestId,
+                               @QueryParam("believer-id") Long believerId) {
+        final List<Prayer> prayers = prayerService.findAll(buildPrayerFilter(prayerRequestId, believerId));
+
+        if (prayers.isEmpty()) {
+            return Response
+                    .noContent()
+                    .build();
+        }
+
+        return Response
+                .ok(PrayerDto.fromPrayers(prayers))
+                .build();
     }
 
     @POST
@@ -76,6 +96,13 @@ public class PrayerController {
                 .prayerRequest(prayerRequest)
                 .believer(believer)
                 .content(prayerDto.content())
+                .build();
+    }
+
+    private PrayerFilter buildPrayerFilter(Long prayerRequestId, Long believerId) {
+        return PrayerFilter.builder()
+                .prayerRequestId(prayerRequestId)
+                .believerId(believerId)
                 .build();
     }
 }

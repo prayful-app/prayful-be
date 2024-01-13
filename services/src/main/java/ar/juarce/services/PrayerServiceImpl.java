@@ -40,7 +40,7 @@ public class PrayerServiceImpl implements PrayerService {
 
     @Override
     public List<Prayer> findAll(Filter<Prayer> filter) {
-        return null;
+        return prayerDao.findAll(filter);
     }
 
     @Override
