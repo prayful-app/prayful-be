@@ -29,11 +29,9 @@ public class PrayerFilter implements Filter<Prayer> {
         List<Predicate> predicates = new ArrayList<>();
         if (prayerRequestId != null) {
             predicates.add(criteriaBuilder.equal(root.get("prayerRequest").get("id"), prayerRequestId));
-//            criteriaQuery.where(criteriaBuilder.equal(root.get("prayerRequest").get("id"), prayerRequestId));
         }
         if (believerId != null) {
             predicates.add(criteriaBuilder.equal(root.get("believer").get("id"), believerId));
-//            criteriaQuery.where(criteriaBuilder.equal(root.get("believer").get("id"), believerId));
         }
         if (!predicates.isEmpty()) {
             criteriaQuery.where(predicates.toArray(Predicate[]::new));
