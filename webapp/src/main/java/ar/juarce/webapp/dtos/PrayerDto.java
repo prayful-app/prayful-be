@@ -9,6 +9,9 @@ import java.util.List;
 public record PrayerDto(
         Long id,
 
+        @NotNull()
+        Long prayerRequestId,
+
         PrayerRequestDto prayerRequest,
 
         UserDto believer,
@@ -23,6 +26,7 @@ public record PrayerDto(
     public static PrayerDto fromPrayer(Prayer prayer) {
         return new PrayerDto(
                 prayer.getId(),
+                prayer.getPrayerRequest().getId(),
                 PrayerRequestDto.fromPrayRequest(prayer.getPrayerRequest()),
                 UserDto.fromUser(prayer.getBeliever()),
                 prayer.getContent(),

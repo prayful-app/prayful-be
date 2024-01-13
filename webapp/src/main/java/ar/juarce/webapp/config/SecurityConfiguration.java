@@ -176,10 +176,7 @@ public class SecurityConfiguration {
 
                         .requestMatchers(HttpMethod.POST, "/prayer-requests").authenticated()
 
-                        .requestMatchers(HttpMethod.POST, "/prayer-requests/{id:\\d+}/prayers").access(
-                                (authentication, context)
-                                        -> new AuthorizationDecision(accessControl.isNotPrayerRequester(authentication.get(), Long.parseLong(context.getVariables().get("id"))))
-                        )
+                        .requestMatchers(HttpMethod.POST, "/prayers").authenticated()
 
 
                         .requestMatchers("/**").permitAll())

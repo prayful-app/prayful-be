@@ -17,11 +17,11 @@ public class Prayer {
     @SequenceGenerator(name = "prayer_id_seq", sequenceName = "prayer_id_seq", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "prayer_request_id", nullable = false)
     private PrayerRequest prayerRequest;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "believer_id", nullable = false)
     private User believer;
 

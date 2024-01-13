@@ -7,6 +7,10 @@ import ar.juarce.models.Filter;
 import ar.juarce.models.Prayer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,13 +29,24 @@ public class PrayerHibernateDao implements PrayerDao {
     }
 
     @Override
-    public Optional<Prayer> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<Prayer> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(Prayer.class, id));
     }
 
     @Override
     public List<Prayer> findAll(Filter<Prayer> filter) {
-        return null;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Prayer> criteriaQuery = criteriaBuilder.createQuery(Prayer.class);
+        Root<Prayer> root = criteriaQuery.from(Prayer.class);
+
+        criteriaQuery.select(root);
+
+        filter.setFiltersToQuery(criteriaBuilder, criteriaQuery, root);
+
+        criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdAt")));
+
+        TypedQuery<Prayer> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
     }
 
     @Override
