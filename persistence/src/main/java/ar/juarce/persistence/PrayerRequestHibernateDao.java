@@ -42,9 +42,6 @@ public class PrayerRequestHibernateDao implements PrayerRequestDao {
 
         filter.setFiltersToQuery(criteriaBuilder, criteriaQuery, root);
 
-
-        // Join with user table and filter by username
-//        criteriaQuery.where(criteriaBuilder.equal(root.join("requester").get("username"), "clay"));
         criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdAt")));
 
         TypedQuery<PrayerRequest> query = entityManager.createQuery(criteriaQuery);

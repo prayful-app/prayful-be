@@ -37,8 +37,9 @@ public class PrayerRequestController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPrayerRequests(@QueryParam("requester-id") Long requesterId) {
-        final List<PrayerRequest> prayerRequests = prayerRequestService.findAll(buildPrayerRequestFilter(requesterId));
+    public Response getPrayerRequests(@QueryParam("requester-id") Long requesterId,
+                                      @QueryParam("recommended-for-id") Long recommendedForId) {
+        final List<PrayerRequest> prayerRequests = prayerRequestService.findAll(buildPrayerRequestFilter(requesterId, recommendedForId));
 
         if (prayerRequests.isEmpty()) {
             return Response
@@ -91,9 +92,10 @@ public class PrayerRequestController {
                 .build();
     }
 
-    private PrayerRequestFilter buildPrayerRequestFilter(Long requesterId) {
+    private PrayerRequestFilter buildPrayerRequestFilter(Long requesterId, Long recommendedForId) {
         return PrayerRequestFilter.builder()
                 .requesterId(requesterId)
+                .recommendedForId(recommendedForId)
                 .build();
     }
 }
