@@ -20,6 +20,7 @@
     <postgresql.version>42.6.0</postgresql.version>
     <hsql.version>2.7.2</hsql.version>
     <lombok.version>1.18.30</lombok.version>
+    <firebase-admin.version>9.2.0</firebase-admin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   </properties>
 
@@ -120,6 +121,13 @@
         <artifactId>spring-boot-devtools</artifactId>
         <version>${spring-boot-starter.version}</version>
         <optional>true</optional>
+      </dependency>
+
+      <!-- Firebase     -->
+      <dependency>
+        <groupId>com.google.firebase</groupId>
+        <artifactId>firebase-admin</artifactId>
+        <version>${firebase-admin.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

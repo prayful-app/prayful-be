@@ -70,6 +70,12 @@
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
+
+    <!-- Firebase     -->
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+    </dependency>
   </dependencies>
 
   <!--  <build>-->

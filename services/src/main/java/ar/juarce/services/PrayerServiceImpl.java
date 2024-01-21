@@ -7,6 +7,7 @@ import ar.juarce.interfaces.exceptions.NotFoundException;
 import ar.juarce.models.Filter;
 import ar.juarce.models.Prayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,13 @@ import java.util.Optional;
 public class PrayerServiceImpl implements PrayerService {
 
     private final PrayerDao prayerDao;
+    private final ApplicationEventPublisher publisher;
 
     @Autowired
-    public PrayerServiceImpl(PrayerDao prayerDao) {
+    public PrayerServiceImpl(PrayerDao prayerDao,
+                             ApplicationEventPublisher publisher) {
         this.prayerDao = prayerDao;
+        this.publisher = publisher;
     }
 
     @Transactional
@@ -29,7 +33,9 @@ public class PrayerServiceImpl implements PrayerService {
         if (entity.getPrayerRequest().getRequester().equals(entity.getBeliever())) {
             throw new RuntimeException("Users can't pray for themselves"); // TODO create custom exception
         }
-        return prayerDao.create(entity);
+        final Prayer prayer = prayerDao.create(entity);
+        publisher.publishEvent(prayer);
+        return prayer;
     }
 
     @Transactional(readOnly = true)
