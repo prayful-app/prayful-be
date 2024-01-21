@@ -52,6 +52,7 @@ Thumbs.db
 # secrets
 jwk_set.json
 jwk_set_public.json
+firebase
 
 # misc
 .env.local
