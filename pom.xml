@@ -130,9 +130,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot-starter.version}</version>
-        <configuration>
-          <mainClass>ar.juarce.webapp.App</mainClass>
-        </configuration>
       </plugin>
 
       <plugin>
