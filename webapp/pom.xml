@@ -10,7 +10,7 @@
 
   <artifactId>webapp</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>webapp</name>
 
   <dependencies>
@@ -65,11 +65,11 @@
     </dependency>
 
     <!-- DevTools     -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <optional>true</optional>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-devtools</artifactId>-->
+<!--      <optional>true</optional>-->
+<!--    </dependency>-->
 
     <!-- Firebase     -->
     <dependency>
@@ -78,16 +78,23 @@
     </dependency>
   </dependencies>
 
-  <!--  <build>-->
-  <!--    <plugins>-->
-  <!--      <plugin>-->
-  <!--        <groupId>org.springframework.boot</groupId>-->
-  <!--        <artifactId>spring-boot-maven-plugin</artifactId>-->
-  <!--        <version>${spring-boot-starter.version}</version>-->
-  <!--        <configuration>-->
-  <!--          <mainClass>ar.juarce.webapp.App</mainClass>-->
-  <!--        </configuration>-->
-  <!--      </plugin>-->
-  <!--    </plugins>-->
-  <!--  </build>-->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>ar.juarce.webapp.App</mainClass>
+          <layout>JAR</layout>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
