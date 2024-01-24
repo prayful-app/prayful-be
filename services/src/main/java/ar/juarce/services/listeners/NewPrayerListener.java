@@ -35,7 +35,7 @@ public class NewPrayerListener {
                 .setTopic("topic")
                 .putData("prayer", prayer.toString())
                 .build();
-        firebaseMessaging.send(message);
-        logger.info("Message sent");
+        final String messageId = firebaseMessaging.send(message);
+        logger.info("Message sent: " + messageId);
     }
 }
