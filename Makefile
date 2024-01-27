@@ -16,7 +16,7 @@ run: start_db
 	mvn spring-boot:run -pl webapp
 
 create_properties:
-	@cp webapp/src/main/resources/application.properties.example webapp/src/main/resources/application.properties
+	@cp webapp/src/main/resources/application.example.properties webapp/src/main/resources/application.properties
 	@echo "Created application.properties file. Please edit it with your credentials."
 
 
