@@ -2,7 +2,7 @@
 container = postgres
 user = user
 password = 123123123
-database = java_api_template
+database = prayful-db
 
 
 # Application Commands
@@ -14,6 +14,10 @@ test:
 
 run: start_db
 	mvn spring-boot:run -pl webapp
+
+create_properties:
+	@cp webapp/src/main/resources/application.properties.example webapp/src/main/resources/application.properties
+	@echo "Created application.properties file. Please edit it with your credentials."
 
 
 # Database Commands
@@ -29,10 +33,10 @@ create_db:
 	@if [ "$(container)" = "postgres" ]; then echo "Using default container name: 'postgres'."; fi
 	@if [ "$(user)" = "user" ]; then echo "Using default user name: 'user'."; fi
 	@if [ "$(password)" = "123123123" ]; then echo "Using default container name: '123123123'."; fi
-	@if [ "$(database)" = "java_api_template" ]; then echo "Using default container name: 'java_api_template'."; fi
+	@if [ "$(database)" = "prayful-db" ]; then echo "Using default container name: 'prayful-db'."; fi
 
 	docker run --name $(container) -e POSTGRES_PASSWORD=$(password) -e POSTGRES_USER=$(user) -p 5432:5432 -d postgres
-	sleep 5  # Wait for the PostgreSQL container to start (you can adjust this as needed)
+	@sleep 5  # Wait for the PostgreSQL container to start (you can adjust this as needed)
 	docker exec -it $(container) psql -U $(user) -c 'CREATE DATABASE "$(database)" WITH ENCODING "UTF-8";'
 
 
