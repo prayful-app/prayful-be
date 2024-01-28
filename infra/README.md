@@ -72,3 +72,11 @@ sudo ln -s <path_to_api.prayful.app> /etc/nginx/sites-available/api.prayful.app
 sudo ln -s /etc/nginx/sites-available/api.prayful.app /etc/nginx/sites-enabled/api.prayful.app
 sudo systemctl restart nginx
 ```
+
+## Systemd
+### Configuration
+```bash
+sudo ln -s <source> /etc/systemd/system/<>.service # Source must be absolute
+sudo systemctl enable api.prayful.service
+sudo systemctl start api.prayful.service
+```

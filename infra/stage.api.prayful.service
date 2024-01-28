@@ -1,0 +1,13 @@
+[Unit]
+Description=Prayful API Stage
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/repos/stage/prayful-be
+ExecStart=/home/ubuntu/.sdkman/candidates/java/current/bin/java /home/ubuntu/repos/stage/prayful-be/webapp/target/webapp-1.0-SNAPSHOT.jar
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
