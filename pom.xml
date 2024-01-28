@@ -21,6 +21,7 @@
     <hsql.version>2.7.2</hsql.version>
     <lombok.version>1.18.30</lombok.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
   </properties>
 
   <modules>
@@ -130,6 +131,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot-starter.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
       </plugin>
 
       <plugin>
