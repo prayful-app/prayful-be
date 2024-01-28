@@ -50,6 +50,7 @@ Thumbs.db
 *.war
 
 # secrets
+jwk
 jwk_set.json
 jwk_set_public.json
 application.properties

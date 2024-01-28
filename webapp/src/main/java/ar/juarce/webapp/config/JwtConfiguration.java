@@ -27,7 +27,7 @@ import java.util.Set;
 @Configuration
 public class JwtConfiguration {
 
-    @Value("classpath:jwk_set.json")
+    @Value("classpath:jwk/jwk_set.json")
     private Resource jwkSetFile;
 
     @Bean
