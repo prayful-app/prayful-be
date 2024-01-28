@@ -57,3 +57,18 @@ sudo service postgresql restart
 sudo apt install nginx
 ```
 
+### Configuration
+#### Create SSL certificate
+```bash
+sudo apt install certbot
+sudo systemctl stop nginx
+sudo certbot certonly --standalone --post-hook "systemctl restart nginx"
+sudo systemctl reload nginx
+```
+#### Create sites-available file
+Create a symlink to the sites-available directory
+```bash
+sudo ln -s <path_to_api.prayful.app> /etc/nginx/sites-available/api.prayful.app
+sudo ln -s /etc/nginx/sites-available/api.prayful.app /etc/nginx/sites-enabled/api.prayful.app
+sudo systemctl restart nginx
+```

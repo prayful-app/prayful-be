@@ -1,15 +1,15 @@
 server {
         listen 80;
-        server_name prayful.app www.prayful.app;
+        server_name stage.api.prayful.app www.stage.api.prayful.app;
         return 301 https://$host$request_uri;
 }
 
 server {
         listen 443 ssl;
-        server_name prayful.app www.prayful.app;
+        server_name stage.api.prayful.app www.stage.api.prayful.app;
 
         location / {
-                proxy_pass http://localhost:8000;
+                proxy_pass http://localhost:8001;
         }
 
         ssl_certificate /etc/letsencrypt/live/prayful.app/fullchain.pem;
