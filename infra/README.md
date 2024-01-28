@@ -77,6 +77,6 @@ sudo systemctl restart nginx
 ### Configuration
 ```bash
 sudo ln -s <source> /etc/systemd/system/<>.service # Source must be absolute
-sudo systemctl enable api.prayful.service
-sudo systemctl start api.prayful.service
+sudo systemctl enable prayful-api-prod.service
+sudo systemctl start prayful-api-prod.service
 ```
