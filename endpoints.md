@@ -2,7 +2,6 @@
 
 ## Users
 
----
 
 ### GET /users
 
@@ -118,7 +117,6 @@ It returns a JWT in the ``Jwt`` header.
 
 ## Prayers
 
----
 
 ### GET /prayers
 
@@ -239,7 +237,6 @@ It returns a JWT in the ``Jwt`` header.
 
 ## Prayer Requests
 
----
 
 ### GET /prayer-requests
 
