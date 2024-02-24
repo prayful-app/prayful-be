@@ -167,6 +167,7 @@ It returns a JWT in the ``Jwt`` header.
   "content": "I'm praying for u bro"
 }
 ```
+To skip a prayer request, you can create a prayer with an empty content.
 
 #### Response
 ```json

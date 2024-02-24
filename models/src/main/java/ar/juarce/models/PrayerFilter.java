@@ -27,15 +27,14 @@ public class PrayerFilter implements Filter<Prayer> {
     @Override
     public void setFiltersToQuery(CriteriaBuilder criteriaBuilder, CriteriaQuery<Prayer> criteriaQuery, Root<Prayer> root) {
         List<Predicate> predicates = new ArrayList<>();
+        predicates.add(criteriaBuilder.notEqual(root.get("content"), ""));
         if (prayerRequestId != null) {
             predicates.add(criteriaBuilder.equal(root.get("prayerRequest").get("id"), prayerRequestId));
         }
         if (believerId != null) {
             predicates.add(criteriaBuilder.equal(root.get("believer").get("id"), believerId));
         }
-        if (!predicates.isEmpty()) {
-            criteriaQuery.where(predicates.toArray(Predicate[]::new));
-        }
+        criteriaQuery.where(predicates.toArray(Predicate[]::new));
     }
 
     public static Builder builder() {
