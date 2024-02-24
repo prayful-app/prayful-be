@@ -17,7 +17,7 @@ public record PrayerDto(
         UserDto believer,
 
         @NotNull()
-        @Size(min = 1, max = 1024)
+        @Size(max = 1024)
         String content,
 
         String createdAt
