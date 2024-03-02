@@ -1,21 +1,13 @@
-# Java Api Template ☕
-This is a template for a Java API, using Spring Boot, Spring Data JPA, Spring Security, and JWT.
+# Prayful API 🙏
+This project is an API for a prayer application.
 
-The API is a simple CRUD for a User entity.
-
-## Next Steps 🚀
-- [ ] Add unit tests in the service layer
-- [x] Integrate Spring Security and JWT authentication
-- [ ] Implement user roles
-- [ ] Implement ACL
-- [ ] Add integration tests
-- [ ] Add Dockerfile
-- [ ] Add Swagger documentation
+You can create a user, or being anonymous. 
+You can create a prayer request, and pray for other people's requests.
 
 ## Requirements 📋
 - Java 21 :coffee:
 - Maven :wrench:
-- Docker :whale:
+- Docker :whale: (optional)
 - Postgres :elephant:
 
 # Setup 🔨
@@ -23,6 +15,7 @@ The API is a simple CRUD for a User entity.
 ```mvn clean install```
 
 ## Database Setup 💾
+
 ### Create Database Container 🐋
 This API uses a postgres database. To set up the database, run the following command:
 
@@ -32,14 +25,16 @@ This API uses a postgres database. To set up the database, run the following com
     - container:    the name of the docker container. If not provided, the default value is 'postgres'
     - user:         the user to create. If not provided, the default value is 'user'
     - password:     the password for the user. If not provided, the default value is '123123123'
-    - database:     the name of the database to create. If not provided, the default value is 'java_api_template'
+    - database:     the name of the database to create. If not provided, the default value is 'prayful-db'
+
 ### Run Database Container 🏹
-If you want to run or re-run the database in a different container, you can use the following command:
+If you want to run or re-run the database container, you can use the following command:
 
 ```make run_db container=<container>```
 
     Where:
     - container:    the name of the docker container. If not provided, the default value is 'postgres'
+
 ### Stop Database Container 🛑
 If you want to stop the database container, you can use the following command:
 
@@ -51,9 +46,9 @@ If you want to stop the database container, you can use the following command:
 Tests will run using an in-memory HSQL database, so there is no need to create a database for tests.
 
 ## Security Configuration 🔒
-This API uses Basic and JWT authentication. 
+This API uses JWT authentication. 
 
-To configure the security, you need to create a file named `jwk_set.json` in the `resources` folder.
+To configure the security, you need to create a file named `jwk_set.json` in the `resources/jwk` directory.
 This file must contain a JWK Set, with at least one key.
 
 You can use the online [JSON Web Key generator](https://mkjwk.org/) to generate a JWK Set: .
@@ -89,3 +84,5 @@ The Jwk set must be in the following format:
 
 ```mvn test```
 
+# Documentation 📖
+The API documentation is available at [endpoints](endpoints.md).
